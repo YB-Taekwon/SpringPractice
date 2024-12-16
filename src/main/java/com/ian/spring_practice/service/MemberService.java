@@ -3,16 +3,19 @@ package com.ian.spring_practice.service;
 import com.ian.spring_practice.domain.Member;
 import com.ian.spring_practice.repository.MemberRepository;
 import com.ian.spring_practice.repository.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class MemberService {
     private final MemoryMemberRepository memberRepository;
 
-    // 테스트 코드에서 서비스에서 실제로 사용하는 리포지토리와 동일한 객체를 사용하기 위해 생성자를 통해 의존성 주입
+    @Autowired
     public MemberService(MemberRepository memberRepository) {
-        this.memberRepository = new MemoryMemberRepository(); // 직접 의존성 주입
+        this.memberRepository = new MemoryMemberRepository(); // 의존성 주입
     }
 
     // 회원가입

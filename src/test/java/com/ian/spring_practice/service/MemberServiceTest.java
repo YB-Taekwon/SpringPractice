@@ -17,7 +17,7 @@ class MemberServiceTest {
 
     // 실행되기 전에 설정되는 부분
     @BeforeEach
-    public void beforeEach() {
+    public void beforeEach() { // 테스트 코드에서 서비스에서 실제로 사용하는 리포지토리와 동일한 객체를 사용하기 위해 설정
         memberRepository = new MemoryMemberRepository();
         memberService = new MemberService(memberRepository); // 서비스에서 사용되는 리포지토리와 동일한 리포지토리
     }
