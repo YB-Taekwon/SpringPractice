@@ -1,32 +1,22 @@
 package com.ian.spring_practice.service;
 
 import com.ian.spring_practice.domain.Member;
-//import org.junit.jupiter.api.Assertions;
-import static org.assertj.core.api.Assertions.*;
-
-import com.ian.spring_practice.repository.MemoryMemberRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import com.ian.spring_practice.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-// 순수 자바 구현 - 단위 테스트: 테스트 시간이 매우 빠름
-class MemberServiceTest {
-    MemberService memberService;
-    MemoryMemberRepository memberRepository;
-
-    // 실행되기 전에 설정되는 부분
-    @BeforeEach
-    public void beforeEach() { // 테스트 코드에서 서비스에서 실제로 사용하는 리포지토리와 동일한 객체를 사용하기 위해 설정
-        memberRepository = new MemoryMemberRepository();
-        memberService = new MemberService(memberRepository); // 서비스에서 사용되는 리포지토리와 동일한 리포지토리
-    }
-
-    @AfterEach
-    void afterEach() {
-        memberRepository.clear();
-    }
+@SpringBootTest
+@Transactional // 테스트 메서드 완료 후 DB RollBack (테스트를 돌려도 DB에 값이 남아있지 않는다.)
+// 스프링 + 데이터베이스 + 자바 - 통합 테스트
+class MemberServiceIntegrationTest {
+    // 외부에서 테스트를 사용할 일이 없기 때문에 필드 기반으로 오토 와이어를 사용하는 게 편리
+    @Autowired MemberService memberService;
+    @Autowired MemberRepository memberRepository;
 
     @Test
     void 회원가입() { // 테스트 코드는 빌드에 포함되지 않기 때문에 한글 사용 가능 (더 직관적임)
@@ -65,11 +55,4 @@ class MemberServiceTest {
 
     }
 
-    @Test
-    void findMembers() {
-    }
-
-    @Test
-    void findMember() {
-    }
 }

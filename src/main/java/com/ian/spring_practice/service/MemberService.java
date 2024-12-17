@@ -2,23 +2,24 @@ package com.ian.spring_practice.service;
 
 import com.ian.spring_practice.domain.Member;
 import com.ian.spring_practice.repository.MemberRepository;
-import com.ian.spring_practice.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
+//@Service
 public class MemberService {
-    private final MemoryMemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
-    @Autowired
+//    @Autowired
     public MemberService(MemberRepository memberRepository) {
-        this.memberRepository = new MemoryMemberRepository(); // 의존성 주입
+        this.memberRepository = memberRepository;
     }
 
     // 회원가입
+    @Transactional // JPA 사용 시 필요, join에 값이 들어올 때 모든 데이터 변경이 트랜잭션 안에서 실행되어야 함
     public Long join(Member member) {
         // 같은 이름의 중복 회원 가입 불가
 //        Optional<Member> result = memberRepository.findByName(member.getName());
